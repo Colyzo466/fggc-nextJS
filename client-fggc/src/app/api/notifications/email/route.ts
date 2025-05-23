@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(req: NextRequest) {
-  let json: any;
+  let json: Record<string, unknown>;
   try {
     json = await req.json();
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
-  const { to, subject, text, html } = json;
+  const { to, subject, text, html } = json as { to?: string; subject?: string; text?: string; html?: string };
   if (!to || !subject || !text) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
   }
@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
     const info = await transporter.sendMail({ from: process.env.SMTP_FROM, to, subject, text, html });
     console.log('Email sent:', info);
     return NextResponse.json({ message: 'Email sent', info });
-  } catch (err) {
-    console.error('Failed to send email:', err);
-    return NextResponse.json({ error: 'Failed to send email', details: err instanceof Error ? err.message : err }, { status: 500 });
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    return NextResponse.json({ error: 'Failed to send email', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
   }
 }
