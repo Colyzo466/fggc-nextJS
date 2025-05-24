@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: email,
-          subject: 'Welcome to GGPC',
+          subject: 'Welcome to Global Grants Peer Connects (GGPC)',
           text: `Hello ${name},\n\nWelcome to Golden Growth Peer Connection! Your registration was successful.`,
           html: `<p>Hello <b>${name}</b>,</p><p>Welcome to <b>Golden Growth Peer Connection</b>! Your registration was successful.</p>`
         })

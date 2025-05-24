@@ -7,7 +7,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 font-sans">
       <header className="w-full py-4 px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center bg-gray-950/95 shadow-lg border-b border-yellow-700 sticky top-0 z-20">
         <div className="flex items-center gap-3 mb-2 sm:mb-0">
-          <Image src="/globe.svg" alt="GGPC Logo" width={40} height={40} />
+          <Image src="/globe.svg" alt="Global Grants Peer Connects Logo" width={40} height={40} />
           <span className="text-2xl font-bold text-yellow-200 tracking-wide drop-shadow">GGPC</span>
         </div>
         <nav className="flex flex-wrap gap-2 sm:gap-4 md:gap-8 justify-center">
@@ -22,7 +22,7 @@ export default function Home() {
         <div className="max-w-2xl w-full bg-gray-900/90 rounded-xl shadow-2xl p-4 sm:p-10 flex flex-col items-center border border-yellow-800 mx-auto">
           <div className="w-full flex flex-row items-center justify-between mb-6 gap-4">
             <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300 text-right drop-shadow-lg whitespace-pre-line">
-              Golden Growth Peer Connection
+              Global Growth Peer Connection
             </h1>
             <div className="flex-1 flex justify-end relative min-h-[100px] min-w-[100px]" style={{height: '140px'}}>
               <Image src="/Currences.png" alt="Currencies" fill sizes="(max-width: 768px) 100vw, 50vw" style={{objectFit: 'contain'}} className="rounded-lg" />
@@ -122,12 +122,12 @@ export default function Home() {
       </main>
       <footer className="w-full bg-gray-950/95 border-t border-yellow-800 py-6 px-4 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 shadow-inner">
         <div className="flex items-center gap-2">
-          <Image src="/globe.svg" alt="GGPC Logo" width={28} height={28} />
+          <Image src="/globe.svg" alt="Global Grants Peer Connects Logo" width={28} height={28} />
           <span className="text-yellow-200 font-bold text-lg">GGPC</span>
         </div>
         <div className="flex flex-col items-center gap-2">
           <div className="text-yellow-400 text-sm text-center">
-            &copy; {new Date().getFullYear()} Golden Growth Peer Connection (GGPC). All rights reserved.
+            &copy; {new Date().getFullYear()} Global Growth Peer Connection (GGPC). All rights reserved.
           </div>
           <div className="flex gap-4 mt-1">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-yellow-300 hover:text-yellow-100 transition">
