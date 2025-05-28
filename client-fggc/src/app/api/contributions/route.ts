@@ -45,7 +45,8 @@ export async function PUT(req: NextRequest) {
     contribution.status = 'approved';
     contribution.approvedAt = new Date();
     // Set return date to 7 working days from now
-    let days = 0, date = new Date();
+    let days = 0;
+    let date = new Date();
     while (days < 7) {
       date.setDate(date.getDate() + 1);
       if (date.getDay() !== 0 && date.getDay() !== 6) days++;
