@@ -34,7 +34,7 @@ export async function GET() {
 export async function PUT(req: NextRequest) {
   await connectToDatabase();
   const { contributionId, action } = await req.json();
-  if (!contributionId || !['approve', 'fail'].includes(action)) {
+  if (!contributionId || !['approve', 'fail', 'withdraw'].includes(action)) {
     return NextResponse.json({ error: 'Missing fields or invalid action' }, { status: 400 });
   }
   const contribution = await Contribution.findById(contributionId);
@@ -67,5 +67,14 @@ export async function PUT(req: NextRequest) {
     // Notify contributor
     await Notification.create({ user: contribution.user, message: `Your payment was not approved. Your account is suspended for 48 hours.`, read: false });
     return NextResponse.json({ message: 'Payment failed and user suspended', contribution });
+  } else if (action === 'withdraw') {
+    if (contribution.status === 'approved' && contribution.returnedAt && new Date(contribution.returnedAt) <= new Date()) {
+      contribution.status = 'completed';
+      await contribution.save();
+      await Notification.create({ user: contribution.user, message: `Your withdrawal of ₣${contribution.returns} is successful.`, read: false });
+      return NextResponse.json({ message: 'Withdrawal successful', contribution });
+    } else {
+      return NextResponse.json({ error: 'Withdrawal not allowed yet' }, { status: 400 });
+    }
   }
 }

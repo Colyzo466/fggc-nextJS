@@ -98,6 +98,7 @@ export default function AdminPage() {
                   <th className="p-2">Amount</th>
                   <th className="p-2">Status</th>
                   <th className="p-2">Date</th>
+                  <th className="p-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,6 +115,34 @@ export default function AdminPage() {
                       <td className="p-2">₦{c.amount}</td>
                       <td className={`p-2 ${c.status === 'completed' ? 'text-green-400' : 'text-yellow-400'}`}>{c.status}</td>
                       <td className="p-2">{new Date(c.date).toLocaleDateString()}</td>
+                      <td className="p-2">
+                        {c.status === 'pending' && (
+                          <div className="flex gap-2">
+                            <button onClick={async () => {
+                              await fetch('/api/contributions', {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ contributionId: c._id, action: 'approve' })
+                              });
+                              // Refresh contributions
+                              fetch('/api/contributions')
+                                .then(res => res.json())
+                                .then(data => setContributions(data.contributions));
+                            }} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-semibold shadow">Approve</button>
+                            <button onClick={async () => {
+                              await fetch('/api/contributions', {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ contributionId: c._id, action: 'fail' })
+                              });
+                              // Refresh contributions
+                              fetch('/api/contributions')
+                                .then(res => res.json())
+                                .then(data => setContributions(data.contributions));
+                            }} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-semibold shadow">Reject</button>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
@@ -185,6 +214,25 @@ export default function AdminPage() {
             </form>
           )}
         </div>
+        {/* Dashboard button for admin */}
+        {(() => {
+          const u = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+          let isAdmin = false;
+          if (u) {
+            try {
+              isAdmin = JSON.parse(u).isAdmin;
+            } catch {}
+          }
+          return isAdmin ? (
+            <button
+              className="bg-blue-700/30 text-blue-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-blue-700/60 transition cursor-pointer mt-4"
+              onClick={() => router.push('/dashboard')}
+              type="button"
+            >
+              Dashboard
+            </button>
+          ) : null;
+        })()}
       </div>
     </div>
   );
