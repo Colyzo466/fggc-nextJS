@@ -13,23 +13,32 @@ export default function AdminPage() {
   const [editIsAdmin, setEditIsAdmin] = useState(false);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     const u = localStorage.getItem("user");
-    if (!u) return router.push("/login");
+    if (!u) {
+      router.push("/login");
+      return;
+    }
     const parsed: IUser = JSON.parse(u);
-    if (!parsed.isAdmin) return router.push("/dashboard");
+    if (!parsed.isAdmin) {
+      router.push("/dashboard");
+      return;
+    }
+    setLoading(false);
   }, [router]);
 
   useEffect(() => {
+    if (loading) return;
     fetch("/api/contributions")
       .then(res => res.json())
       .then(data => setContributions(data.contributions as IContribution[]));
     fetch("/api/users")
       .then(res => res.json())
       .then(data => setUsers(data.users as IUser[]));
-  }, []);
+  }, [loading]);
 
   function handleEditUser(user: IUser) {
     setSelectedUser(user);
@@ -69,6 +78,10 @@ export default function AdminPage() {
     if (!res.ok) return setError(data.error || "Delete failed");
     setSuccess("User deleted successfully");
     setUsers(users.filter(u => u._id !== id));
+  }
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center text-yellow-200 text-xl">Loading admin panel...</div>;
   }
 
   return (
