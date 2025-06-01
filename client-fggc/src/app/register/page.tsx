@@ -3,70 +3,85 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    setShowLogin(false);
+    setSuccess("");
+    setLoading(true);
     const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ name, email, password }),
     });
     const data = await res.json();
-    if (data.showLogin) {
-      setError(data.message || data.error || "User already exists");
-      setShowLogin(true);
-      return;
-    }
+    setLoading(false);
     if (!res.ok) return setError(data.error || "Registration failed");
-    router.push("/login");
+    setSuccess("Registration successful! Redirecting to login...");
+    setTimeout(() => router.push("/login"), 1500);
   }
 
   return (
-    <div className="max-w-md mx-auto mt-20 p-8 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-6">Register</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Name"
-          value={form.name}
-          onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-          className="border p-2 rounded"
-          required
-        />
-        {error && <div className="text-red-500">{error}</div>}
-        <button type="submit" className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Register</button>
-        {showLogin && (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 px-4">
+      <div className="w-full max-w-md bg-gray-900/95 rounded-2xl shadow-2xl p-8 border border-yellow-800">
+        <div className="flex items-center gap-2 mb-8">
+          <img src="/globe.svg" alt="GGPC Logo" className="w-10 h-10" />
+          <span className="text-yellow-200 font-bold text-2xl drop-shadow">GGPC</span>
+        </div>
+        <h2 className="text-3xl font-bold text-yellow-300 mb-6 text-center">Create Account</h2>
+        {error && <div className="bg-red-900/60 text-red-300 rounded p-2 mb-4 text-center">{error}</div>}
+        {success && <div className="bg-green-900/60 text-green-300 rounded p-2 mb-4 text-center">{success}</div>}
+        <form onSubmit={handleRegister} className="flex flex-col gap-5">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            className="p-3 rounded-lg border border-yellow-700 bg-gray-800 text-yellow-100 focus:ring-2 focus:ring-yellow-400 outline-none transition"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            className="p-3 rounded-lg border border-yellow-700 bg-gray-800 text-yellow-100 focus:ring-2 focus:ring-yellow-400 outline-none transition"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            className="p-3 rounded-lg border border-yellow-700 bg-gray-800 text-yellow-100 focus:ring-2 focus:ring-yellow-400 outline-none transition"
+            required
+          />
           <button
-            type="button"
-            className="bg-green-600 text-white py-2 rounded hover:bg-green-700 mt-2"
-            onClick={() => router.push("/login")}
+            type="submit"
+            className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-lg transition mt-2 disabled:opacity-60"
+            disabled={loading}
           >
-            Go to Login
+            {loading ? "Registering..." : "Register"}
           </button>
-        )}
-      </form>
+        </form>
+        <div className="text-yellow-200 text-sm text-center mt-6">
+          Already have an account?{" "}
+          <button
+            className="text-yellow-400 hover:underline font-semibold"
+            onClick={() => router.push("/login")}
+            type="button"
+          >
+            Login
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

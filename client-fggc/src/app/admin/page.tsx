@@ -88,6 +88,30 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 py-8 px-2 sm:px-6">
       <div className="max-w-5xl mx-auto bg-gray-900/95 rounded-xl shadow-2xl p-6 sm:p-10 border border-yellow-800">
         <h2 className="text-3xl font-bold text-yellow-300 mb-6 text-center">Admin Panel</h2>
+        {/* Admin Navbar */}
+        <nav className="flex flex-wrap gap-3 mb-8 items-center justify-center">
+          <button
+            className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
+            onClick={() => router.push("/")}
+            type="button"
+          >
+            Home
+          </button>
+          <button
+            className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
+            onClick={() => router.push("/notifications")}
+            type="button"
+          >
+            Notifications
+          </button>
+          <button
+            className="bg-blue-700/30 text-blue-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-blue-700/60 transition cursor-pointer"
+            onClick={() => router.push("/dashboard")}
+            type="button"
+          >
+            Dashboard
+          </button>
+        </nav>
         <div className="mb-8">
           <h3 className="font-semibold text-yellow-200 mb-2">All Contributions</h3>
           <div className="overflow-x-auto">
