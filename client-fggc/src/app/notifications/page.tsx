@@ -75,6 +75,10 @@ export default function NotificationsPage() {
         </button>
       </nav>
       <div className="max-w-2xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
+        {/* GGPC_customer image for notifications branding */}
+        <div className="flex justify-center mb-6">
+          <img src="/GGPC_customer.png" alt="GGPC Customer" width={100} height={100} className="rounded-full shadow-lg border-4 border-green-700 bg-gray-900" style={{objectFit:'cover'}} />
+        </div>
         <h2 className="text-2xl font-bold text-yellow-300 mb-6 text-center">Notifications</h2>
         {loading && <div className="text-yellow-200 text-center py-8">Loading notifications...</div>}
         {error && <div className="text-red-400 text-center py-8">{error}</div>}
