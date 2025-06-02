@@ -25,7 +25,7 @@ export default function Home() {
               Global Growth Peer Connection
             </h1>
             <div className="flex-1 flex justify-end relative min-h-[100px] min-w-[100px]" style={{height: '140px'}}>
-              <Image src="/Currences.png" alt="Currencies" fill sizes="(max-width: 768px) 100vw, 50vw" style={{objectFit: 'contain'}} className="rounded-lg" />
+              <Image src="/Currence.png" alt="Currencies" fill sizes="(max-width: 768px) 100vw, 50vw" style={{objectFit: 'contain'}} className="rounded-lg" />
             </div>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-yellow-100 mb-6 text-center font-medium">

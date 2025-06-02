@@ -6,7 +6,7 @@ export default function AboutPage() {
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         <div className="max-w-3xl w-full bg-gray-900/95 rounded-xl shadow-2xl p-10 flex flex-col items-center border border-yellow-800">
           <div className="mb-8 w-full h-64 overflow-hidden rounded-xl border-4 border-yellow-400 bg-gray-800 flex items-center justify-center">
-            <Image src="/FGGC.png" alt="Global Grants Peer Connects Company Logo" width={320} height={240} className="object-contain w-full h-full" />
+            <Image src="/GGPC.png" alt="Global Grants Peer Connects Company Logo" width={320} height={240} className="object-contain w-full h-full" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-yellow-300 mb-4 text-center drop-shadow-lg">About Global Growth Peer Connection</h1>
           <p className="text-lg sm:text-xl text-yellow-100 mb-6 text-center font-medium">
