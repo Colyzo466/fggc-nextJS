@@ -95,9 +95,9 @@ export default function AdminPage() {
             <Image
               src="/GGPC_peerConnet.png"
               alt="GGPC Peer Connect"
-              width={800}
-              height={100}
-              className="rounded-xl shadow-lg border-4 border-blue-700 bg-gray-900 object-contain h-20 w-auto"
+              width={320}
+              height={140}
+              className="rounded-xl shadow-lg border-4 border-blue-700 bg-gray-900 object-contain h-32 w-auto"
               style={{maxWidth:'100%'}}
               priority
             />

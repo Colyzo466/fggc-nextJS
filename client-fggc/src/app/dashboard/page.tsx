@@ -231,9 +231,9 @@ export default function DashboardPage() {
             <Image
               src="/GGPC_Avetar.png"
               alt="GGPC Avatar"
-              width={240}
-              height={100}
-              className="rounded-full shadow-lg border-4 border-yellow-700 bg-gray-900 object-contain h-24 w-auto"
+              width={320}
+              height={140}
+              className="rounded-full shadow-lg border-4 border-yellow-700 bg-gray-900 object-contain h-32 w-auto"
               style={{maxWidth:'100%'}}
               priority
             />
