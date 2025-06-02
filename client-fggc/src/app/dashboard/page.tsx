@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IContribution } from "@/models/Contribution";
+import Image from "next/image";
 
 // DashboardHeader component
 function DashboardHeader({ user, onAdminClick }: { user: { id: string; name: string; email: string; isAdmin: boolean } | null, onAdminClick: () => void }) {
@@ -214,7 +215,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 flex flex-col items-center justify-start py-10 px-2 sm:px-6 relative overflow-x-hidden">
       {/* Top left logo */}
       <div className="absolute top-4 left-4 z-20 flex items-center gap-2 pointer-events-auto">
-        <img src="/globe.svg" alt="GGPC Logo" className="w-10 h-10" />
+        <Image src="/globe.svg" alt="GGPC Logo" width={40} height={40} className="w-10 h-10" />
         <span className="text-yellow-200 font-bold text-xl drop-shadow">GGPC</span>
       </div>
       {/* Animated background shapes */}

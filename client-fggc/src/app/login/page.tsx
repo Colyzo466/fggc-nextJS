@@ -2,6 +2,7 @@
 // Professional, modern, dark-themed Login page
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 px-4">
       <div className="w-full max-w-md bg-gray-900/95 rounded-2xl shadow-2xl p-8 border border-yellow-800">
         <div className="flex items-center gap-2 mb-8">
-          <img src="/globe.svg" alt="GGPC Logo" className="w-10 h-10" />
+          <Image src="/globe.svg" alt="GGPC Logo" width={40} height={40} className="w-10 h-10" />
           <span className="text-yellow-200 font-bold text-2xl drop-shadow">GGPC</span>
         </div>
         <h2 className="text-3xl font-bold text-yellow-300 mb-6 text-center">Sign In</h2>
@@ -60,8 +61,7 @@ export default function LoginPage() {
             {loading ? "Signing in..." : "Login"}
           </button>
         </form>
-        <div className="text-yellow-200 text-sm text-center mt-6">
-          Don't have an account?{' '}
+        <div className="text-yellow-200 text-sm text-center mt-6">          Don&apos;t have an account?{' '}
           <button
             className="text-yellow-400 hover:underline font-semibold"
             onClick={() => router.push('/register')}
