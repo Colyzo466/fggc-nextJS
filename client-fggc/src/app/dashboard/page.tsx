@@ -225,45 +225,7 @@ export default function DashboardPage() {
         <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-yellow-300/10 rounded-full blur-2xl animate-pulse" />
       </div>
       <div className="max-w-3xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
-        {/* Navbar for dashboard navigation */}
-        <nav className="flex flex-wrap gap-3 mb-8 items-center justify-center z-20 relative">
-          <div className="flex-1 flex items-center min-w-[120px] max-w-full pr-4">
-            <Image
-              src="/GGPC_Avetar.png"
-              alt="GGPC Avatar"
-              width={320}
-              height={140}
-              className="rounded-full shadow-lg border-4 border-yellow-700 bg-gray-900 object-contain h-32 w-auto"
-              style={{maxWidth:'100%'}}
-              priority
-            />
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <button
-              className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
-              onClick={() => router.push("/")}
-              type="button"
-            >
-              Home
-            </button>
-            <button
-              className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
-              onClick={() => router.push("/notifications")}
-              type="button"
-            >
-              Notifications
-            </button>
-            {user?.isAdmin && (
-              <button
-                className="bg-green-700/30 text-green-300 px-4 py-1 rounded-full text-xs font-semibold hover:bg-green-700/60 transition cursor-pointer"
-                onClick={() => router.push("/admin")}
-                type="button"
-              >
-                Admin Panel
-              </button>
-            )}
-          </div>
-        </nav>
+        {/* Remove local navbar and footer, now handled by layout */}
         <DashboardHeader user={user} onAdminClick={() => router.push('/admin')} />
         <ContributionForm amount={amount} setAmount={setAmount} onSubmit={handleContribute} />
         <ContributionList
@@ -273,9 +235,6 @@ export default function DashboardPage() {
           handleFail={handleFail}
           handleWithdraw={handleWithdraw}
         />
-        <footer className="mt-10 text-center text-yellow-600 text-xs opacity-80">
-          &copy; {new Date().getFullYear()} Global Growth Peer Connection (GGPC). All rights reserved.
-        </footer>
       </div>
     </div>
   );

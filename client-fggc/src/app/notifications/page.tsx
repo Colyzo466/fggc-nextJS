@@ -50,30 +50,6 @@ export default function NotificationsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 flex flex-col items-center justify-start py-10 px-2 sm:px-6 relative overflow-x-hidden">
-      {/* Navbar for notifications navigation */}
-      <nav className="flex flex-wrap gap-3 mb-8 items-center justify-center z-20 relative">
-        <button
-          className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
-          onClick={() => router.push("/")}
-          type="button"
-        >
-          Home
-        </button>
-        <button
-          className="bg-blue-700/30 text-blue-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-blue-700/60 transition cursor-pointer"
-          onClick={() => router.push("/dashboard")}
-          type="button"
-        >
-          Dashboard
-        </button>
-        <button
-          className="bg-green-700/30 text-green-300 px-4 py-1 rounded-full text-xs font-semibold hover:bg-green-700/60 transition cursor-pointer"
-          onClick={() => router.push("/admin")}
-          type="button"
-        >
-          Admin Panel
-        </button>
-      </nav>
       <div className="max-w-2xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
         {/* GGPC_customer image for notifications branding */}
         <div className="flex justify-center mb-6">

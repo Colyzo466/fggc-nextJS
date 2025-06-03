@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { IUser } from "@/models/User";
 import { IContribution } from "@/models/Contribution";
 import Image from "next/image";
+import toast from 'react-hot-toast';
 
 export default function AdminPage() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -62,6 +63,7 @@ export default function AdminPage() {
     const data = await res.json();
     if (!res.ok) return setError(data.error || "Update failed");
     setSuccess("User updated successfully");
+    toast.success("User updated successfully");
     setUsers(users.map(u => u._id === selectedUser?._id ? data.user : u));
     setSelectedUser(null);
   }
@@ -89,43 +91,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 py-8 px-2 sm:px-6">
       <div className="max-w-5xl mx-auto bg-gray-900/95 rounded-xl shadow-2xl p-6 sm:p-10 border border-yellow-800">
         <h2 className="text-3xl font-bold text-yellow-300 mb-6 text-center">Admin Panel</h2>
-        {/* Admin Navbar with branding image */}
-        <nav className="flex flex-wrap gap-3 mb-8 items-center justify-center">
-          <div className="flex-1 flex items-center min-w-[120px] max-w-full pr-4">
-            <Image
-              src="/GGPC_peerConnet.png"
-              alt="GGPC Peer Connect"
-              width={320}
-              height={140}
-              className="rounded-xl shadow-lg border-4 border-blue-700 bg-gray-900 object-contain h-32 w-auto"
-              style={{maxWidth:'100%'}}
-              priority
-            />
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <button
-              className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
-              onClick={() => router.push("/")}
-              type="button"
-            >
-              Home
-            </button>
-            <button
-              className="bg-yellow-700/30 text-yellow-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-yellow-700/60 transition cursor-pointer"
-              onClick={() => router.push("/notifications")}
-              type="button"
-            >
-              Notifications
-            </button>
-            <button
-              className="bg-blue-700/30 text-blue-200 px-4 py-1 rounded-full text-xs font-semibold hover:bg-blue-700/60 transition cursor-pointer"
-              onClick={() => router.push("/dashboard")}
-              type="button"
-            >
-              Dashboard
-            </button>
-          </div>
-        </nav>
+        {/* Remove local navbar and footer, now handled by layout */}
         <div className="mb-8">
           <h3 className="font-semibold text-yellow-200 mb-2">All Contributions</h3>
           <div className="overflow-x-auto">
