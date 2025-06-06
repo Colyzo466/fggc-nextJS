@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ErrorBoundary from "./components/ErrorBoundary";
-import NotificationToaster from "./components/NotificationToaster";
+import ClientLayout from "./components/ClientLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,13 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 min-h-screen`}
       >
-        <Toaster position="top-right" />
-        <NotificationToaster />
-        <ErrorBoundary>
-          <Navbar />
-          <main className="min-h-[80vh]">{children}</main>
-          <Footer />
-        </ErrorBoundary>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
