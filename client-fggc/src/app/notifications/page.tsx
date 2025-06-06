@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 interface Notification {
@@ -13,7 +13,6 @@ interface Notification {
 }
 
 export default function NotificationsPage() {
-  const router = useRouter();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -58,7 +57,7 @@ export default function NotificationsPage() {
       <div className="max-w-2xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
         {/* GGPC_customer image for notifications branding */}
         <div className="flex justify-center mb-6">
-          <img src="/GGPC_customer.png" alt="GGPC Customer" width={100} height={100} className="rounded-full shadow-lg border-4 border-green-700 bg-gray-900" style={{objectFit:'cover'}} />
+          <Image src="/GGPC_customer.png" alt="GGPC Customer" width={100} height={100} className="rounded-full shadow-lg border-4 border-green-700 bg-gray-900" style={{objectFit:'cover'}} />
         </div>
         <h2 className="text-2xl font-bold text-yellow-300 mb-6 text-center">Notifications</h2>
         {error && <div className="text-red-400 text-center py-8">{error}</div>}

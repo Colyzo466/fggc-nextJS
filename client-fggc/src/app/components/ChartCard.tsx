@@ -1,6 +1,11 @@
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
-export default function ChartCard({ data, title }: { data: any[]; title: string }) {
+interface ChartDataPoint {
+  name: string;
+  value: number;
+}
+
+export default function ChartCard({ data, title }: { data: ChartDataPoint[]; title: string }) {
   return (
     <div className="bg-gray-900 rounded-xl shadow-lg p-6 border border-yellow-800 mb-8">
       <h3 className="text-lg font-bold text-yellow-300 mb-4">{title}</h3>

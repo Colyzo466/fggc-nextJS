@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/models/User";
 import { IContribution } from "@/models/Contribution";
-import Image from "next/image";
 import toast from 'react-hot-toast';
 import LoadingSpinner from "../components/LoadingSpinner";
 import ConfirmDialog from "../components/ConfirmDialog";

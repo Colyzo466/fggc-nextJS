@@ -20,7 +20,7 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: unknown) {
     // Optionally log error to a service like Sentry
     // Sentry.captureException(error, { extra: errorInfo });
   }
