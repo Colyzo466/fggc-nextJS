@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 interface Notification {
   _id: string;
@@ -48,6 +49,10 @@ export default function NotificationsPage() {
     setNotifications(n => n.filter(notif => notif._id !== id));
   }
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 flex flex-col items-center justify-start py-10 px-2 sm:px-6 relative overflow-x-hidden">
       <div className="max-w-2xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
@@ -56,7 +61,6 @@ export default function NotificationsPage() {
           <img src="/GGPC_customer.png" alt="GGPC Customer" width={100} height={100} className="rounded-full shadow-lg border-4 border-green-700 bg-gray-900" style={{objectFit:'cover'}} />
         </div>
         <h2 className="text-2xl font-bold text-yellow-300 mb-6 text-center">Notifications</h2>
-        {loading && <div className="text-yellow-200 text-center py-8">Loading notifications...</div>}
         {error && <div className="text-red-400 text-center py-8">{error}</div>}
         {!loading && notifications.length === 0 && !error && (
           <div className="text-yellow-400 text-center py-8 italic">No notifications yet.</div>

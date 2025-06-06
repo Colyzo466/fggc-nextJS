@@ -5,6 +5,8 @@ import { IUser } from "@/models/User";
 import { IContribution } from "@/models/Contribution";
 import Image from "next/image";
 import toast from 'react-hot-toast';
+import LoadingSpinner from "../components/LoadingSpinner";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 export default function AdminPage() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -16,6 +18,8 @@ export default function AdminPage() {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -69,22 +73,28 @@ export default function AdminPage() {
   }
 
   async function handleDeleteUser(id: string) {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    setPendingDeleteId(id);
+    setConfirmOpen(true);
+  }
+
+  async function confirmDeleteUser() {
+    if (!pendingDeleteId) return;
     setError("");
     setSuccess("");
     const res = await fetch("/api/users", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id: pendingDeleteId }),
     });
     const data = await res.json();
     if (!res.ok) return setError(data.error || "Delete failed");
     setSuccess("User deleted successfully");
-    setUsers(users.filter(u => u._id !== id));
+    setUsers(users.filter(u => u._id !== pendingDeleteId));
+    setPendingDeleteId(null);
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center text-yellow-200 text-xl">Loading admin panel...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -159,6 +169,13 @@ export default function AdminPage() {
           {error && <div className="text-red-400 mb-2">{error}</div>}
           {success && <div className="text-green-400 mb-2">{success}</div>}
           <div className="overflow-x-auto mb-4">
+            <ConfirmDialog
+              open={confirmOpen}
+              onClose={() => setConfirmOpen(false)}
+              onConfirm={confirmDeleteUser}
+              title="Delete User?"
+              description="Are you sure you want to delete this user? This action cannot be undone."
+            />
             <table className="min-w-full text-yellow-100 text-sm">
               <thead>
                 <tr className="bg-yellow-900/60">

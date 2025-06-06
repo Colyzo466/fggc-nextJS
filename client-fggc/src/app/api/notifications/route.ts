@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Notification from '@/models/Notification';
+import { z } from 'zod';
+
+const notificationSchema = z.object({
+  user: z.string().min(1),
+  message: z.string().min(1),
+  type: z.enum(['success', 'error', 'info']),
+  read: z.boolean().optional(),
+});
 
 export async function GET(req: NextRequest) {
   await connectToDatabase();
@@ -13,8 +21,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   await connectToDatabase();
-  const { userId, message } = await req.json();
-  if (!userId || !message) return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
-  const notification = await Notification.create({ user: userId, message });
+  const { userId, message, type, read } = await req.json();
+  const parsed = notificationSchema.safeParse({ user: userId, message, type, read });
+  if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+  const notification = await Notification.create({ user: userId, message, type, read });
   return NextResponse.json({ notification });
 }

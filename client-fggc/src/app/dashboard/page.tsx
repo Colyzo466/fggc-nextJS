@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IContribution } from "@/models/Contribution";
 import Image from "next/image";
+import LoadingSpinner from "../components/LoadingSpinner";
+import ChartCard from "../components/ChartCard";
 
 // DashboardHeader component
 function DashboardHeader({ user, onAdminClick }: { user: { id: string; name: string; email: string; isAdmin: boolean } | null, onAdminClick: () => void }) {
@@ -211,6 +213,19 @@ export default function DashboardPage() {
     }
   }
 
+  // Sample data for chart
+  const chartData = [
+    { name: "Jan", value: 5000 },
+    { name: "Feb", value: 10000 },
+    { name: "Mar", value: 7000 },
+    { name: "Apr", value: 12000 },
+    { name: "May", value: 9000 },
+  ];
+
+  if (!user || contributions.length === 0) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 flex flex-col items-center justify-start py-10 px-2 sm:px-6 relative overflow-x-hidden">
       {/* Top left logo */}
@@ -225,6 +240,8 @@ export default function DashboardPage() {
         <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-yellow-300/10 rounded-full blur-2xl animate-pulse" />
       </div>
       <div className="max-w-3xl w-full bg-gray-900/95 rounded-2xl shadow-2xl p-6 sm:p-10 border border-yellow-800 z-10 relative">
+        {/* Dashboard Chart Example */}
+        <ChartCard data={chartData} title="Contribution Growth (Sample)" />
         {/* Remove local navbar and footer, now handled by layout */}
         <DashboardHeader user={user} onAdminClick={() => router.push('/admin')} />
         <ContributionForm amount={amount} setAmount={setAmount} onSubmit={handleContribute} />

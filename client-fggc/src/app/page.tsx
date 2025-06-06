@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import AboutPage from "./about/page";
+import toast from "react-hot-toast";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 font-sans">
       <main className="flex-1 flex flex-col items-center justify-center px-2 sm:px-4 py-8 sm:py-12 w-full">
+        <button
+          className="mb-4 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 px-6 rounded-lg shadow transition"
+          onClick={() => toast.success('Welcome to GGPC!')}
+        >
+          Show Welcome Toast
+        </button>
         <div className="max-w-2xl w-full bg-gray-900/90 rounded-xl shadow-2xl p-4 sm:p-10 flex flex-col items-center border border-yellow-800 mx-auto">
           <div className="w-full flex flex-row items-center justify-between mb-6 gap-4">
             <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300 text-right drop-shadow-lg whitespace-pre-line">

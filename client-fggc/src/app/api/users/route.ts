@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import User from '@/models/User';
 import fetch from 'node-fetch';
+import { z } from 'zod';
+
+// User schema for validation
+const userSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  isAdmin: z.boolean().optional(),
+});
 
 // Get all users (admin only)
 export async function GET() {
@@ -15,6 +23,11 @@ export async function PUT(req: NextRequest) {
   await connectToDatabase();
   const { id, ...update } = await req.json();
   if (!id) return NextResponse.json({ error: 'Missing user id' }, { status: 400 });
+
+  // Validate update data
+  const parsed = userSchema.safeParse(update);
+  if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+
   const user = await User.findByIdAndUpdate(id, update, { new: true, select: '-password' });
   if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
 

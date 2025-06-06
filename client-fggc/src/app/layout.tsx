@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ErrorBoundary from "./components/ErrorBoundary";
+import NotificationToaster from "./components/NotificationToaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +39,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-800 min-h-screen`}
       >
         <Toaster position="top-right" />
-        <Navbar />
-        <main className="min-h-[80vh]">{children}</main>
-        <Footer />
+        <NotificationToaster />
+        <ErrorBoundary>
+          <Navbar />
+          <main className="min-h-[80vh]">{children}</main>
+          <Footer />
+        </ErrorBoundary>
       </body>
     </html>
   );

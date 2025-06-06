@@ -3,6 +3,12 @@ import { connectToDatabase } from '@/lib/db';
 import Contribution from '@/models/Contribution';
 import User from '@/models/User';
 import Notification from '@/models/Notification';
+import { z } from 'zod';
+
+const contributionSchema = z.object({
+  userId: z.string().min(1),
+  amount: z.number().min(1000),
+});
 
 export async function POST(req: NextRequest) {
   await connectToDatabase();
