@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
 import ClientLayout from "./components/ClientLayout";
 
 const geistSans = Geist({
@@ -15,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://your-production-domain.com"), // TODO: Replace with your real domain
   title: "GGPC - Global Growth Peer Connection",
   description: "Peer-to-peer growth and financial empowerment platform.",
   openGraph: {

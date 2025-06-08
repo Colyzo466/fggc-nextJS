@@ -20,9 +20,8 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: unknown) {
-    // Optionally log error to a service like Sentry
-    // Sentry.captureException(error, { extra: errorInfo });
+  componentDidCatch() {
+    // You can log the error to an error reporting service here
   }
 
   render() {
